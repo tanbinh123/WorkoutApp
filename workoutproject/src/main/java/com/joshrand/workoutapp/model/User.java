@@ -12,17 +12,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Table(name="USER_DATA")
 public class User
 {
+	
 	//@NotEmpty(message = "field can't be empty")
 	@Id 
 	@GeneratedValue
 	private int userId;
-	@Column(name="USER_NAME")
+	//@Column(name="USER_NAME")
 	private String userName;
 	private String firstName;
 	private String lastName;
 	private String password;
 	
 	
+	public User(String userName, String firstName, String lastName, String password)
+	{
+		super();
+		this.userName = userName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+	}
 	
 	
 	@Override
@@ -32,7 +41,16 @@ public class User
 				+ lastName + ", password=" + password + "]";
 	}
 
+	public String getUserName()
+	{
+		return userName;
+	}
 
+
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
 	public String getFirstName()
 	{
 		return firstName;

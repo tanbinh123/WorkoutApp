@@ -1,8 +1,10 @@
 import React from 'react';
 import Button from 'C:/Users/Josh/AppData/Roaming/npm/node_modules/react-bootstrap';
+import UserService from './services/userservice';
+var userService = new UserService();
 
 class Main extends React.Component{
-
+    
     constructor(props)
     {
         super(props)
@@ -10,13 +12,39 @@ class Main extends React.Component{
             user:[],
             uName:"",
             uPass:"",
+            fName:"",
+            lName:"",
             workouts:[],
             condition:false,
             start:true,
         }
         console.log("in constructor");
+        this.HandleLoginSubmit = this.HandleLoginSubmit.bind(this);
+        this.handleCreateUser = this.handleCreateUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    HandleLoginSubmit(event)
+    {
+        event.preventDefault();
+         userService.getAllUsers();
+        // console.log(this.state.user[0].firstName);
+        // if(this.state.uName === this.state.user[0].userName && this.state.uPass === this.state.user[0].password)
+        // {
+        //     console.log("login successfull")
+        //     this.setState({
+        //         start:false,
+        //     })
+        // }
+        // else 
+        // {
+            this.setState({
+                start:true,
+            })
+        //}
+        //console.log(userData);
+        
+        //if(Element.state.uPass === )
     }
     handleChange(event) {
         const value = event.target.value;
@@ -25,6 +53,18 @@ class Main extends React.Component{
             [name]: value
         });
     }
+    handleCreateUser(event)
+    {
+        event.preventDefault();
+        let userObject = {'userName':this.state.uName, 'firstName':this.state.fName,'lastName':this.state.lName,'password':this.state.uPass};
+        userService.create(userObject);
+        console.log(userObject);
+        this.setState({
+            start:true,
+        })
+
+    }
+
     handleSubmit(event){
         event.preventDefault();
         
@@ -49,8 +89,11 @@ class Main extends React.Component{
                     </header>
 
                 
-                <form  onSubmit={this.handleSubmit}>
-                    <button class="btn btn-danger" type="submit">Click here to change state</button>
+                <form  style={{margin:'20%'}} onSubmit={this.HandleLoginSubmit}>
+                    {/* <input type="text" name="uName" className="form-control" value={this.state.uName} required placeholder="User Name" onChange={this.handleChange}/>
+                    <input type="text" name="uPass" className="form-control" value={this.state.uPass} required placeholder="User Password" onChange={this.handleChange}/> */}
+
+                    <button style={{margin:'10px'}} class="btn btn-danger" type="submit">Sign In</button>
                 </form>
                 </div>
             );
@@ -94,10 +137,14 @@ class Main extends React.Component{
                     </header>
 
                     <h1 >Case 2</h1>
-                    <form  class="" onSubmit={this.handleSubmit}>
+                    <form  class="" onSubmit={this.handleCreateUser}>
                         <div className="first-row">
                             <label className="User-Name-Text">User Name</label>
                             <input type="text" name="uName" className="form-control" value={this.state.uName} required placeholder="User Name" onChange={this.handleChange}/>
+                            <input type="text" name="uPass" className="form-control" value={this.state.uPass} required placeholder="User Password" onChange={this.handleChange}/>
+                            <input type="text" name="fName" className="form-control" value={this.state.fName} required placeholder="First Name" onChange={this.handleChange}/>
+                            <input type="text" name="lName" className="form-control" value={this.state.lName} required placeholder="Last Name" onChange={this.handleChange}/>
+                            <br></br>
                         </div>
                         
                         

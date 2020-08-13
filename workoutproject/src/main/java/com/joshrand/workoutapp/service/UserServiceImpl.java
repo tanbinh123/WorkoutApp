@@ -3,10 +3,11 @@ package com.joshrand.workoutapp.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.joshrand.workoutapp.model.User;
 import com.joshrand.workoutapp.repo.UserRepo;
-
+@Service
 public class UserServiceImpl implements UserService
 
 {
@@ -56,6 +57,13 @@ public class UserServiceImpl implements UserService
 			
 			
 			return null;
+		}
+
+		@Override
+		public List<User> findAll()
+		{
+			// TODO Auto-generated method stub
+			return (List<User>) userRepo.findAll();
 		}
 
 	
