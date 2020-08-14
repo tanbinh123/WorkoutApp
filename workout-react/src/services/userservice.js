@@ -3,9 +3,16 @@ import React from 'react';
 import axios from 'C:/Users/Josh/AppData/Roaming/npm/node_modules/axios';
 const USER_POST_REST_API_URL = 'http://localhost:8080/registerUser';
 const USER_GET_REST_API_URL = 'http://localhost:8080/pullUsers';
-var data = [];
+
 var userPromise;
 class UserService extends React.Component{
+    constructor(props)
+    {
+        super(props)
+        this.state={
+            data: Array(),
+        }
+    }
     create(user)
     {
         let userString = JSON.stringify(user);
@@ -20,20 +27,25 @@ class UserService extends React.Component{
     getAllUsers()
     {
         
-         userPromise = axios.get(USER_GET_REST_API_URL);
-         data = userPromise.then(function(result) {
-            console.log(result);
-            var userData=[];
-            result.data.forEach(element => {
-                userData.push(element);
-            });
+         return axios.get(USER_GET_REST_API_URL);
+        //  userPromise.then((response) => {
+        //    // console.log(response);
+        //     // var userData=[];
+        //     // result.data.forEach(element => {
+        //     //     userData.push(element);
+        //     // });
             
-            console.log(userData[0].lastName);
+        //         this.state.data = response.data;
+        //         //console.log(this.state.data);
+        //         return this.state.data;
+        //     // console.log(userData[0].lastName);
             
-            console.log("UserDATA = " + userData);
-            data=userData;
-        });
-        return data;
+        //    // console.log("UserDATA = " + userData);
+        //     //data=userData;
+        // });
+        //return this.state.data;
+       
+        
        
         //let resParse = JSON.parse(res);
         //console.log(resParse);

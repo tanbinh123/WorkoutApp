@@ -27,24 +27,30 @@ class Main extends React.Component{
     HandleLoginSubmit(event)
     {
         event.preventDefault();
-         userService.getAllUsers();
-        // console.log(this.state.user[0].firstName);
-        // if(this.state.uName === this.state.user[0].userName && this.state.uPass === this.state.user[0].password)
-        // {
-        //     console.log("login successfull")
-        //     this.setState({
-        //         start:false,
-        //     })
-        // }
-        // else 
-        // {
+        userService.getAllUsers().then((result) => {
+            this.setState({
+             
+            user:result.data});
+            console.log(this.state.user);
+            console.log(this.state.user[0].lastName);
+        
+         if(this.state.uName === this.state.user[0].userName && this.state.uPass === this.state.user[0].password)
+         {
+            console.log("login successfull")
+            this.setState({
+                start:false,
+                condition:true,
+            })
+        }
+        else 
+        {
             this.setState({
                 start:true,
             })
-        //}
-        //console.log(userData);
+        }
         
-        //if(Element.state.uPass === )
+        });
+       
     }
     handleChange(event) {
         const value = event.target.value;
@@ -90,8 +96,8 @@ class Main extends React.Component{
 
                 
                 <form  style={{margin:'20%'}} onSubmit={this.HandleLoginSubmit}>
-                    {/* <input type="text" name="uName" className="form-control" value={this.state.uName} required placeholder="User Name" onChange={this.handleChange}/>
-                    <input type="text" name="uPass" className="form-control" value={this.state.uPass} required placeholder="User Password" onChange={this.handleChange}/> */}
+                     <input type="text" name="uName" className="form-control" value={this.state.uName} required placeholder="User Name" onChange={this.handleChange}/>
+                    <input type="text" name="uPass" className="form-control" value={this.state.uPass} required placeholder="User Password" onChange={this.handleChange}/>
 
                     <button style={{margin:'10px'}} class="btn btn-danger" type="submit">Sign In</button>
                 </form>
@@ -116,7 +122,7 @@ class Main extends React.Component{
                                     
                     </header>
 
-                     <h1>Case 1</h1>
+                     <h1>Logged in Successfully</h1>
                     <form  onSubmit={this.handleSubmit}>
                         <button style={{padding:"10px",margin:'10px',}} class="btn btn-danger" type="submit">Click here to change state</button>
                     </form>
