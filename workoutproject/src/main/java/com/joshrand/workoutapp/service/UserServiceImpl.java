@@ -52,11 +52,8 @@ public class UserServiceImpl implements UserService
 		@Override
 		public User findUserByName(String userName)
 		{
-			//User user = userRepo.currentUser(userName);
-			// TODO Auto-generated method stub
-			
-			
-			return null;
+		
+			return userRepo.findByUserName(userName);
 		}
 
 		@Override

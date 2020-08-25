@@ -6,5 +6,5 @@ import com.joshrand.workoutapp.model.User;
 
 public interface UserRepo extends CrudRepository<User, Integer>
 {
-
+	public User findByUserName(String userName);
 }

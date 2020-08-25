@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'C:/Users/Josh/AppData/Roaming/npm/node_modules/react-bootstrap';
 import UserService from './services/userservice';
+import './css/styles.css';
 var userService = new UserService();
 
 class Main extends React.Component{
@@ -9,7 +10,7 @@ class Main extends React.Component{
     {
         super(props)
         this.state = {
-            user:[],
+            user:null,
             uName:"",
             uPass:"",
             fName:"",
@@ -27,16 +28,22 @@ class Main extends React.Component{
     HandleLoginSubmit(event)
     {
         event.preventDefault();
-        userService.getAllUsers().then((result) => {
+        userService.userLogin(this.state.uName,this.state.uPass).then((result) => {
             this.setState({
-             
-            user:result.data});
+                user:result.data,
+            });
+            console.log(result);
+       
+            
+            console.log("before accessing result");
+           
+            
             console.log(this.state.user);
             console.log(this.state.user[0].lastName);
         
          if(this.state.uName === this.state.user[0].userName && this.state.uPass === this.state.user[0].password)
          {
-            console.log("login successfull")
+            console.log("login successfull");
             this.setState({
                 start:false,
                 condition:true,
@@ -48,8 +55,31 @@ class Main extends React.Component{
                 start:true,
             })
         }
+    });
         
-        });
+        // userService.getAllUsers().then((result) => {
+        //     this.setState({
+             
+        //     user:result.data});
+        //     console.log(this.state.user);
+        //     console.log(this.state.user[0].lastName);
+        
+        //  if(this.state.uName === this.state.user[0].userName && this.state.uPass === this.state.user[0].password)
+        //  {
+        //     console.log("login successfull");
+        //     this.setState({
+        //         start:false,
+        //         condition:true,
+        //     })
+        // }
+        // else 
+        // {
+        //     this.setState({
+        //         start:true,
+        //     })
+        // }
+        
+        // });
        
     }
     handleChange(event) {
@@ -70,6 +100,19 @@ class Main extends React.Component{
         })
 
     }
+    
+    changeState(){
+        this.setState({
+            start: !this.state.start
+        });
+    }
+    handleLogout(){
+        this.setState({
+            start:true,
+            user:null,
+
+        });
+    }
 
     handleSubmit(event){
         event.preventDefault();
@@ -85,7 +128,10 @@ class Main extends React.Component{
         if(this.state.start)
         {
             return(
-                <div className="app">
+                
+                <div className="app"  style={{margin:'10%'}}>
+                     <h1 >Welcome to the Workout App!</h1>
+                     <h3 >Please login</h3>
                     <header className="app-header">
                         
                         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
@@ -95,12 +141,17 @@ class Main extends React.Component{
                     </header>
 
                 
-                <form  style={{margin:'20%'}} onSubmit={this.HandleLoginSubmit}>
+                <form onSubmit={this.HandleLoginSubmit}>
                      <input type="text" name="uName" className="form-control" value={this.state.uName} required placeholder="User Name" onChange={this.handleChange}/>
                     <input type="text" name="uPass" className="form-control" value={this.state.uPass} required placeholder="User Password" onChange={this.handleChange}/>
-
-                    <button style={{margin:'10px'}} class="btn btn-danger" type="submit">Sign In</button>
+                    <br></br>
+                    <button class="btn btn-info" type="submit">Sign In</button>
+                    <br></br>
+                    {/* style={{margin:'10px'}}  */}
+                    
                 </form>
+                <br></br>
+                <button class="btn btn-info" onClick={()=>this.changeState()}>Click here to Register</button>
                 </div>
             );
 
@@ -112,20 +163,51 @@ class Main extends React.Component{
 
             return(
                
-                <div className="app">
+                <div className="app" style={{margin:'10%'}}>
                    
                     <header className="app-header">
                         
                         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
                         rel="stylesheet" 
                         id="bootstrap-css"/>
-                                    
+
+                       
+                            
+                            
                     </header>
 
-                     <h1>Logged in Successfully</h1>
+                <h1>Logged in Successfully as {this.state.user[0].userName}</h1>
+        <div >
+ 
+            <div className="cards">
+                 
+                <div className="card">
+                   <img src={require('./img/DemoWorkoutImg.png')}/>
+                </div>
+ 
+                <div className="card">
+                            <a>content for card two</a>
+                        </div>
+            
+                <div className="card">
+                                <a>content for card three</a>
+                            </div>
+                
+                <div className="card">
+                                <a>content for card four</a>
+                            </div>
+ 
+            </div>
+        </div>
                     <form  onSubmit={this.handleSubmit}>
-                        <button style={{padding:"10px",margin:'10px',}} class="btn btn-danger" type="submit">Click here to change state</button>
+                    <br></br>
+                        {/* <button  class="btn btn-info" type="submit">Click here to change state</button>  */}
+                        <br></br>
+                        
+                        {/* style={{padding:"10px",margin:'10px',}} */}
                     </form>
+                    <br></br>
+                    <button  class="btn btn-info" onClick={()=>this.handleLogout()}>Click here to Logout</button> 
                 </div>
                 );
         }
@@ -142,7 +224,7 @@ class Main extends React.Component{
                                       
                     </header>
 
-                    <h1 >Case 2</h1>
+                    <h1 >Register User</h1>
                     <form  class="" onSubmit={this.handleCreateUser}>
                         <div className="first-row">
                             <label className="User-Name-Text">User Name</label>
@@ -153,10 +235,9 @@ class Main extends React.Component{
                             <br></br>
                         </div>
                         
-                        
-
-                        <button class="btn btn-danger" type="submit">Click here to change state</button>
-                    </form>
+                        <button class="btn btn-info" type="submit">Submit</button>
+                    </form><br></br>
+                    <button class="btn btn-info" onClick={()=>this.changeState()}>Click here to Login</button> 
                 </div>
                
                 );
@@ -172,5 +253,4 @@ class Main extends React.Component{
 
 
 }
-
 export default Main; 
