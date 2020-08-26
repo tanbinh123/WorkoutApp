@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'C:/Users/Josh/AppData/Roaming/npm/node_modules/react-bootstrap';
 import UserService from './services/userservice';
 import './css/styles.css';
+import WorkoutCreatePage from './pages/workoutcreatepage'
 var userService = new UserService();
 
 class Main extends React.Component{
@@ -18,6 +19,7 @@ class Main extends React.Component{
             workouts:[],
             condition:false,
             start:true,
+            workoutCreate:false,
         }
         console.log("in constructor");
         this.HandleLoginSubmit = this.HandleLoginSubmit.bind(this);
@@ -113,6 +115,16 @@ class Main extends React.Component{
 
         });
     }
+    handleCreateWorkout(){
+        console.log("hi");
+        console.log("start = " + this.state.start);
+        console.log("condition = " + this.state.condition);
+        console.log("workoutcreate = " + this.state.workoutCreate);
+        this.setState({
+            condition:false,
+            workoutCreate:true,
+        });
+    }
 
     handleSubmit(event){
         event.preventDefault();
@@ -176,26 +188,24 @@ class Main extends React.Component{
                             
                     </header>
 
-                <h1>Logged in Successfully as {this.state.user[0].userName}</h1>
-        <div >
+                     <h1>Logged in Successfully as {this.state.user[0].userName}</h1>
+                 <div >
  
-            <div className="cards">
+            <div className="flex-container">
                  
-                <div className="card">
-                   <img src={require('./img/DemoWorkoutImg.png')}/>
+                <div>
+                        <img src={require('./img/DemoWorkoutImg.png')} onClick={()=>this.handleCreateWorkout()}/>
+
                 </div>
- 
-                <div className="card">
-                            <a>content for card two</a>
-                        </div>
-            
-                <div className="card">
-                                <a>content for card three</a>
-                            </div>
                 
-                <div className="card">
-                                <a>content for card four</a>
-                            </div>
+                <div >
+                
+                    
+                        <img src={require('./img/DemoWorkoutImg.png')} onClick={()=>this.handleLogout()}/>
+                   
+                </div>
+            
+                
  
             </div>
         </div>
@@ -210,6 +220,14 @@ class Main extends React.Component{
                     <button  class="btn btn-info" onClick={()=>this.handleLogout()}>Click here to Logout</button> 
                 </div>
                 );
+        }
+        else if(this.state.workoutCreate)
+        {
+            return(
+                <div className="app" style={{margin:'10%'}}>
+                <WorkoutCreatePage uName={this.state.uName}/>
+                </div>
+            );
         }
         else if(!this.state.condition)
         {
@@ -242,12 +260,13 @@ class Main extends React.Component{
                
                 );
         }
-        else
+        else if(this.state.condition)
         {
             return(
                 <a>default</a>
             );
         }
+       
        
     }
 
