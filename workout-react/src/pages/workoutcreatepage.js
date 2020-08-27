@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/styles.css';
 import '../utility/renderitems'
 import { RenderItems } from '../utility/renderitems';
+import WorkoutService from '../services/workoutservice';
 
 class WorkoutCreatePage extends React.Component{
     
@@ -34,6 +35,19 @@ class WorkoutCreatePage extends React.Component{
             [name]: value,
         });
     }
+    
+    submitWorkout()
+    {
+        let ws = new WorkoutService();
+
+        ws.createWorkout(this.state.workoutList);
+        this.setState({
+            workoutList:[],
+            workoutName:"",
+            
+        });
+    }
+
     addWorkoutToList(event)
     {    
         event.preventDefault();
@@ -96,6 +110,11 @@ class WorkoutCreatePage extends React.Component{
                     </form>
                     <a>{this.state.workoutName}</a>
                   <RenderItems list={this.state.workoutList}></RenderItems>
+
+                
+                  <button class="btn btn-info" onClick={()=>this.submitWorkout()} >Submit workout</button>
+                  
+
                 </div>
                
         );

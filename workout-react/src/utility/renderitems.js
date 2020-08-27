@@ -1,16 +1,17 @@
 import React from 'react';
+import '../css/styles.css';
 
 export const RenderItems = ({list}) => (
-    <ul>
+    <div className="flex-container">
         {
         
         list.map(item => (
-            <li key={item.workoutName}>
-           <div>{item.type}</div>
-            <div>sets: {item.sets}</div>
-            <div>reps: {item.reps}</div>
+            <div  key={item.workoutName}>
+            <div className="workout-cards" ><u>{item.type}</u> <br></br>
+            sets: {item.sets}<br></br>
+            reps: {item.reps}</div>
             
-            </li>
+            </div>
         ))}
-    </ul>
+    </div>
   );
