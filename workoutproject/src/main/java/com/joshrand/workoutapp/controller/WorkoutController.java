@@ -23,7 +23,7 @@ public class WorkoutController
 	@PostMapping("/createWorkout")
 	public void createWorkout(@Valid @RequestBody List<Workout> workout)
 	{
-		System.out.println(workout.toString() + "wwwowowowowowow");
+		System.out.println(workout.toString());
 		
 		for (Workout workout2 : workout)
 		{

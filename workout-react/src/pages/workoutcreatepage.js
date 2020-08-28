@@ -13,17 +13,32 @@ class WorkoutCreatePage extends React.Component{
             sets:0,
             reps:0,
             workoutName:"",
+            workoutTypeCount: 0,
+            workoutType:["ex1","ex2", "ex3", "ex4", "ex5", "ex6"],
             workoutList:[],
             uName:this.props.uName,
         }
-        
+        this.hideExercise = this.hideExercise.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.addWorkoutToList = this.addWorkoutToList.bind(this);
     }
     changeWorkout(type)
     {
+        // let count = 0;
+        // this.state.workoutType.forEach(element => {
+        //     if(type == element)
+        //     {
+        //         this.setState({
+        //             workoutTypeCount: count,
+        //         });
+               
+        //     }
+        //     count++;
+        // });
+
         this.setState({
             type: type,
+            
         });
     }
     handleChange(event)
@@ -47,15 +62,37 @@ class WorkoutCreatePage extends React.Component{
             
         });
     }
-
+    hideExercise(id){
+        console.log(id);
+        document.getElementById(id).style.display = 'none';
+    }
+    showAllExercises(){
+        this.state.workoutType.forEach(element => {
+            document.getElementById(element).style.display = '';
+        });
+    }
     addWorkoutToList(event)
     {    
         event.preventDefault();
         let li = this.state.workoutList;
         li.push({'workoutName':this.state.workoutName , 'type':this.state.type, 'sets':this.state.sets, 'reps':this.state.reps, 'user':this.props.uName});
+        this.hideExercise(this.state.type);
         this.setState({
             workoutList: li,
+            sets: 0,
+            reps: 0,
+            // workoutTypeCount: this.state.workoutTypeCount++,
+            // type: this.state.workoutType[this.state.workoutTypeCount]
         });
+        // if(this.state.workoutTypeCount > 5)
+        // {
+        //     this.setState({
+        //         workoutTypeCount: 0,
+        //         type: this.state.workoutType[this.state.workoutTypeCount]
+
+        //     });
+        // }
+        
          li.forEach(element => {
              console.log(element);
          });
@@ -76,22 +113,22 @@ class WorkoutCreatePage extends React.Component{
                     <h1>Current user {this.props.uName}</h1>
                     <div className="flex-container">
                         <div>
-                            <h1 onClick={()=>this.changeWorkout('ex1')}>Exercise1</h1>
+                            <h1 id="ex1" onClick={()=>this.changeWorkout(this.state.workoutType[0])}>Exercise1</h1>
                         </div>
                         <div>
-                            <h1 onClick={()=>this.changeWorkout('ex2')}>Exercise2</h1>
+                            <h1 onClick={()=>this.changeWorkout(this.state.workoutType[1])}>Exercise2</h1>
                         </div>
                         <div>
-                            <h1 onClick={()=>this.changeWorkout('ex3')}>Exercise3</h1>
+                            <h1 onClick={()=>this.changeWorkout(this.state.workoutType[2])}>Exercise3</h1>
                         </div>
                         <div>
-                            <h1 onClick={()=>this.changeWorkout('ex4')}>Exercise4</h1>
+                            <h1 onClick={()=>this.changeWorkout(this.state.workoutType[3])}>Exercise4</h1>
                         </div>
                         <div>
-                            <h1 onClick={()=>this.changeWorkout('ex5')}>Exercise5</h1>
+                            <h1 onClick={()=>this.changeWorkout(this.state.workoutType[4])}>Exercise5</h1>
                         </div>
                         <div>
-                            <h1 onClick={()=>this.changeWorkout('ex6')}>Exercise6</h1>
+                            <h1 onClick={()=>this.changeWorkout(this.state.workoutType[5])}>Exercise6</h1>
                         </div>
                     </div>
 
