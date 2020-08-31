@@ -8,8 +8,8 @@ export const RenderItems = ({list}) => (
         list.map(item => (
             <div  key={item.workoutName}>
             <div className="workout-cards" ><u>{item.type}</u> <br></br>
-            sets: {item.sets}<br></br>
-            reps: {item.reps}</div>
+            <a>sets: {item.sets}</a><br></br>
+            <a>reps: {item.reps}</a></div>
             
             </div>
         ))}

@@ -22,6 +22,11 @@
       cursor: pointer;
       display:block;
     }
+    .flex-container > div > h1{
+     
+      font-size: 3vw;
+     
+    }
    
     .flex-container > div > .workout-cards {
       background-color: #f36d6d;
@@ -32,6 +37,12 @@
       font-size: 20px;
       cursor: pointer;
       display:block;
+    }
+    .flex-container > div > .workout-cards> u {
+      font-size: 2.5vw;
+    }
+    .flex-container > div > .workout-cards> a {
+      font-size: 2.5vw;
     }
    
 
