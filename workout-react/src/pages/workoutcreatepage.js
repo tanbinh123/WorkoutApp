@@ -3,7 +3,7 @@ import '../css/styles.css';
 import '../utility/renderitems'
 import { RenderItems } from '../utility/renderitems';
 import WorkoutService from '../services/workoutservice';
-
+var ws = new WorkoutService();
 class WorkoutCreatePage extends React.Component{
     
     constructor(props){
@@ -19,6 +19,7 @@ class WorkoutCreatePage extends React.Component{
             workoutList:[],
             uName:this.props.uName,
             showForm:false,
+            errorMessage:"",
         }
         this.hideExercise = this.hideExercise.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -26,18 +27,7 @@ class WorkoutCreatePage extends React.Component{
     }
     changeWorkout(type)
     {
-        // let count = 0;
-        // this.state.workoutType.forEach(element => {
-        //     if(type == element)
-        //     {
-        //         this.setState({
-        //             workoutTypeCount: count,
-        //         });
-               
-        //     }
-        //     count++;
-        // });
-
+        
         this.setState({
             type: type,
             
@@ -55,7 +45,6 @@ class WorkoutCreatePage extends React.Component{
     
     submitWorkout()
     {
-        let ws = new WorkoutService();
 
         ws.createWorkout(this.state.workoutList);
         this.setState({
@@ -83,24 +72,30 @@ class WorkoutCreatePage extends React.Component{
     
     changeShowForm()
     {
-        let ws = new WorkoutService();
-        ws.workoutExists(this.state.workoutName)
-        if(true){
-            this.setState({
-                showForm:!this.state.showForm,
-                workoutList:[],
-                workoutTypeBool:[false,false,false,false,false,false],
-                type:'ex1',
-            });
-        }
-        else
-        {
-
-        }
-       
+        
+        ws.workoutExists(this.state.workoutName).then((result) => {
+        
+            console.log(result);
+            if(result.data[0] == null){
+                this.setState({
+                    showForm:!this.state.showForm,
+                    workoutList:[],
+                    workoutTypeBool:[false,false,false,false,false,false],
+                    type:'ex1',
+                    errorMessage:"",
+                });
+            }
+            else
+            {
+                this.setState({
+                   
+                    errorMessage:"Workout Exists",
+                });
+            }
+         });
 
     
-    }
+        }
     addWorkoutToList(event)
     {    
         event.preventDefault();
@@ -111,8 +106,7 @@ class WorkoutCreatePage extends React.Component{
             workoutList: li,
             sets: 0,
             reps: 0,
-            // workoutTypeCount: this.state.workoutTypeCount++,
-            // type: this.state.workoutType[this.state.workoutTypeCount]
+            
         });
         var findNext = false;
         
@@ -173,15 +167,7 @@ class WorkoutCreatePage extends React.Component{
            }
            console.log(boolCount);
            console.log(this.state.workoutTypeBool)
-        // if(this.state.workoutTypeCount > 5)
-        // {
-        //     this.setState({
-        //         workoutTypeCount: 0,
-        //         type: this.state.workoutType[this.state.workoutTypeCount]
-
-        //     });
-        // }
-        
+       
          li.forEach(element => {
              console.log(element);
          });
@@ -197,50 +183,50 @@ class WorkoutCreatePage extends React.Component{
             if(this.state.type === '')
             {
                 
-            return(
-                <div className="workoutcreatepage">
-                    <header className="app-header">
-                             
-                            <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-                            rel="stylesheet" 
-                            id="bootstrap-css"/>
-                                          
-                        </header>
-                        <h1>Current user : {this.props.uName}</h1>
-                        <h1>Workout Name : {this.state.workoutName}</h1> <button class="btn btn-info" onClick={()=>this.changeShowForm()} >Cancle</button>
+                return(
+                    <div className="workoutcreatepage">
+                        <header className="app-header">
+                                
+                                <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+                                rel="stylesheet" 
+                                id="bootstrap-css"/>
+                                            
+                            </header>
+                            <h1>Current user : {this.props.uName}</h1>
+                            <h1>Workout Name : {this.state.workoutName}</h1> <button class="btn btn-info" onClick={()=>this.changeShowForm()} >Cancle</button>
+                            <br></br>
+                            <br></br>
+                            <div className="flex-container">
+                                <div>
+                                    <h1 id="ex1" onClick={()=>this.changeWorkout(this.state.workoutType[0])}>Exercise1</h1>
+                                </div>
+                                <div>
+                                    <h1 id="ex2" onClick={()=>this.changeWorkout(this.state.workoutType[1])}>Exercise2</h1>
+                                </div>
+                                <div>
+                                    <h1  id="ex3" onClick={()=>this.changeWorkout(this.state.workoutType[2])}>Exercise3</h1>
+                                </div>
+                                <div>
+                                    <h1 id="ex4" onClick={()=>this.changeWorkout(this.state.workoutType[3])}>Exercise4</h1>
+                                </div>
+                                <div>
+                                    <h1  id="ex5" onClick={()=>this.changeWorkout(this.state.workoutType[4])}>Exercise5</h1>
+                                </div>
+                                <div>
+                                    <h1   id="ex6" onClick={()=>this.changeWorkout(this.state.workoutType[5])}>Exercise6</h1>
+                                </div>
+                            </div>
+        
+                            <a>{this.state.workoutName}</a>
+                        <RenderItems list={this.state.workoutList}></RenderItems>
+        
                         <br></br>
-                        <br></br>
-                        <div className="flex-container">
-                            <div>
-                                <h1 id="ex1" onClick={()=>this.changeWorkout(this.state.workoutType[0])}>Exercise1</h1>
-                            </div>
-                            <div>
-                                <h1 id="ex2" onClick={()=>this.changeWorkout(this.state.workoutType[1])}>Exercise2</h1>
-                            </div>
-                            <div>
-                                <h1  id="ex3" onClick={()=>this.changeWorkout(this.state.workoutType[2])}>Exercise3</h1>
-                            </div>
-                            <div>
-                                <h1 id="ex4" onClick={()=>this.changeWorkout(this.state.workoutType[3])}>Exercise4</h1>
-                            </div>
-                            <div>
-                                <h1  id="ex5" onClick={()=>this.changeWorkout(this.state.workoutType[4])}>Exercise5</h1>
-                            </div>
-                            <div>
-                                <h1   id="ex6" onClick={()=>this.changeWorkout(this.state.workoutType[5])}>Exercise6</h1>
-                            </div>
+                        <button class="btn btn-info" onClick={()=>this.submitWorkout()} >Submit workout</button>
+                        
+        
                         </div>
-    
-                        <a>{this.state.workoutName}</a>
-                      <RenderItems list={this.state.workoutList}></RenderItems>
-    
-                    <br></br>
-                      <button class="btn btn-info" onClick={()=>this.submitWorkout()} >Submit workout</button>
-                      
-    
-                    </div>
                    
-            );
+                  );
             }
             else
             {
@@ -324,8 +310,8 @@ class WorkoutCreatePage extends React.Component{
                     {/* <button class="btn btn-info" onClick={()=>this.changeState()}>Click here to Register</button> */}
                      <input type="text" name="workoutName" className="form-control" value={this.state.workoutName} required placeholder="Workout Name" onChange={this.handleChange}/>
                      <button class="btn btn-info" onClick={()=>this.changeShowForm()} >CreateWorkout</button>
-                   
-    
+                    <br></br>
+                    {this.state.errorMessage}
                     </div>
                    
             );

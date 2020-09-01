@@ -34,6 +34,12 @@ public class Workout {
 		this.sets = sets;
 		this.reps = reps;
 	}
+    @Autowired
+	public Workout()
+	{
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getUser()
 	{
 		return user;

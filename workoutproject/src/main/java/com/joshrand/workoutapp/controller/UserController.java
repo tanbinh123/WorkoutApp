@@ -45,9 +45,17 @@ public class UserController
 	@PostMapping("/registerUser")
 	public void createUser(@Valid @RequestBody User user)
 	{
-		System.out.println(user.toString());
-		//userService.addUser(new User("fred","fred","123","1234"));
-		userService.addUser(user);
+		if(userService.userExists(user.getUserName()))
+		{
+			
+		}
+		else
+		{
+			System.out.println(user.toString());
+			//userService.addUser(new User("fred","fred","123","1234"));
+			userService.addUser(user);
+		}
+		
 	}
 	@ResponseBody
 	@GetMapping("/pullUsers")
@@ -58,6 +66,15 @@ public class UserController
 		List<User> list = userService.findAll();
 		System.out.println(JSONArray.toJSONString(list));
 		return JSONArray.toJSONString(list);
+		
+	}
+	@ResponseBody
+	@GetMapping("/getErrorStatus")
+	public String getErrorStatus()
+	{
+		
+		
+		return "User Exists";
 		
 	}
 	@ResponseBody
