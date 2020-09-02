@@ -5,6 +5,10 @@ import './css/styles.css';
 import WorkoutCreatePage from './pages/workoutcreatepage'
 var userService = new UserService();
 
+
+
+
+
 class Main extends React.Component{
     
     constructor(props)
@@ -20,6 +24,7 @@ class Main extends React.Component{
             condition:false,
             start:true,
             workoutCreate:false,
+            registerErrorMessage:'',
         }
         console.log("in constructor");
         this.HandleLoginSubmit = this.HandleLoginSubmit.bind(this);
@@ -94,13 +99,27 @@ class Main extends React.Component{
     handleCreateUser(event)
     {
         event.preventDefault();
-        let userObject = {'userName':this.state.uName, 'firstName':this.state.fName,'lastName':this.state.lName,'password':this.state.uPass};
-        userService.create(userObject);
-        console.log(userObject);
-        this.setState({
-            start:true,
-        })
-
+        userService.userLogin(this.state.uName,this.state.uPass).then((result) => {
+            console.log(result.data);
+            if(result.data[0] === undefined)
+            {
+                
+                let userObject = {'userName':this.state.uName, 'firstName':this.state.fName,'lastName':this.state.lName,'password':this.state.uPass};
+                userService.create(userObject);
+                console.log(userObject);
+                this.setState({
+                    start:true,
+                });
+            }
+            else if(result.data[0].userName == this.state.uName)
+            {
+                this.setState({
+                    registerErrorMessage:'User Exists'
+                });
+            }
+            
+        
+        });
     }
     
     changeState(){
@@ -182,29 +201,25 @@ class Main extends React.Component{
                         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
                         rel="stylesheet" 
                         id="bootstrap-css"/>
-
-                       
-                            
-                            
                     </header>
 
                      <h1>Logged in Successfully as {this.state.user[0].userName}</h1>
                  <div >
  
-            <div className="flex-container">
-                 
-                <div>
-                        <img src={require('./img/DemoWorkoutImg.png')} onClick={()=>this.handleCreateWorkout()}/>
-
-                </div>
-                
-                <div >
-                
+                <div className="flex-container">
                     
-                        <img src={require('./img/DemoWorkoutImg.png')} onClick={()=>this.handleLogout()}/>
-                   
-                </div>
-            
+                    <div>
+                            <img src={require('./img/DemoWorkoutImg.png')} onClick={()=>this.handleCreateWorkout()}/>
+
+                    </div>
+                    
+                    <div >
+                    
+                        
+                            <img src={require('./img/DemoWorkoutImg.png')} onClick={()=>this.handleLogout()}/>
+                    
+                    </div>
+                
                 
  
             </div>
@@ -254,7 +269,9 @@ class Main extends React.Component{
                         </div>
                         
                         <button class="btn btn-info" type="submit">Submit</button>
-                    </form><br></br>
+                    </form>
+                    <a>{this.state.registerErrorMessage}</a>
+                    <br></br>
                     <button class="btn btn-info" onClick={()=>this.changeState()}>Click here to Login</button> 
                 </div>
                

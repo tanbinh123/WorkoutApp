@@ -4,6 +4,7 @@ import axios from 'C:/Users/Josh/AppData/Roaming/npm/node_modules/axios';
 const USER_POST_REST_API_URL = 'http://localhost:8080/registerUser';
 const USER_GET_REST_API_URL = 'http://localhost:8080/pullUsers';
 const USER_LOGIN_GET_REST_API_URL = 'http://localhost:8080/loginUser';
+const USER_ERROR_GET_REST_API_URL = 'http://localhost:8080/getUser';
 
 var userPromise;
 class UserService extends React.Component{
@@ -24,6 +25,11 @@ class UserService extends React.Component{
           .catch(function (error) {
             console.log(error);
           });
+    }
+    userRegError(uName,uPass)
+    {   
+        let str = USER_ERROR_GET_REST_API_URL+'/'+uName+'/'+uPass;
+        return axios.get(str);
     }
     userLogin(uName,uPass)
     {

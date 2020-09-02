@@ -45,12 +45,14 @@ public class UserController
 	@PostMapping("/registerUser")
 	public void createUser(@Valid @RequestBody User user)
 	{
+		System.out.println(user.toString());
 		if(userService.userExists(user.getUserName()))
 		{
 			
 		}
 		else
 		{
+			System.out.println("CREATING USER FROM REACT JSON BODY");
 			System.out.println(user.toString());
 			//userService.addUser(new User("fred","fred","123","1234"));
 			userService.addUser(user);
@@ -69,12 +71,23 @@ public class UserController
 		
 	}
 	@ResponseBody
-	@GetMapping("/getErrorStatus")
-	public String getErrorStatus()
+	@GetMapping("/getUser/{name}/{password}")
+	public String getUserIfExists(@Valid @PathVariable String name,@Valid @PathVariable String password)
 	{
 		
+		List<User> list = new ArrayList<User>();
 		
-		return "User Exists";
+		list.add(userService.findUserByName(name));
+		System.out.println("Checking if user Exists"+JSONArray.toJSONString(list));
+		if(loginService.validateUser(name, password))
+		{
+			System.out.println("Inside lovinservice if statement");
+			return JSONArray.toJSONString(list);
+		}
+		else
+		{
+			return null;
+		}
 		
 	}
 	@ResponseBody
