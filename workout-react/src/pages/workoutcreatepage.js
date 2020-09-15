@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/styles.css';
 import '../utility/renderitems'
-import { RenderItems } from '../utility/renderitems';
+import { RenderItems, RenderWorkouts } from '../utility/renderitems';
 import WorkoutService from '../services/workoutservice';
 var ws = new WorkoutService();
 class WorkoutCreatePage extends React.Component{
@@ -17,9 +17,11 @@ class WorkoutCreatePage extends React.Component{
             workoutType:["ex1","ex2", "ex3", "ex4", "ex5", "ex6"],
             workoutTypeBool:[false,false,false,false,false,false],
             workoutList:[],
+            existingWorkouts:[],
             uName:this.props.uName,
             showForm:false,
             errorMessage:"",
+            updateExistingWorkouts:true,
         }
         this.hideExercise = this.hideExercise.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -52,7 +54,7 @@ class WorkoutCreatePage extends React.Component{
             workoutName:"",
             type:'ex1',
             showForm:false,
-            
+            updateExistingWorkouts:true
         });
         this.showAllExercises();
         
@@ -83,6 +85,7 @@ class WorkoutCreatePage extends React.Component{
                     workoutTypeBool:[false,false,false,false,false,false],
                     type:'ex1',
                     errorMessage:"",
+                    updateExistingWorkouts:true
                 });
             }
             else
@@ -193,27 +196,27 @@ class WorkoutCreatePage extends React.Component{
                                             
                             </header>
                             <h1>Current user : {this.props.uName}</h1>
-                            <h1>Workout Name : {this.state.workoutName}</h1> <button class="btn btn-info" onClick={()=>this.changeShowForm()} >Cancle</button>
+                            <h1>Workout Name : {this.state.workoutName}</h1> <button class="btn btn-info" onClick={()=>this.changeShowForm()} >Cancel</button>
                             <br></br>
                             <br></br>
                             <div className="flex-container">
                                 <div>
-                                    <h1 id="ex1" onClick={()=>this.changeWorkout(this.state.workoutType[0])}>Exercise1</h1>
+                                    <h1 id="ex1" onClick={()=>this.changeWorkout(this.state.workoutType[0])}>Bench Press</h1>
                                 </div>
                                 <div>
-                                    <h1 id="ex2" onClick={()=>this.changeWorkout(this.state.workoutType[1])}>Exercise2</h1>
+                                    <h1 id="ex2" onClick={()=>this.changeWorkout(this.state.workoutType[1])}>Inclined Bench</h1>
                                 </div>
                                 <div>
-                                    <h1  id="ex3" onClick={()=>this.changeWorkout(this.state.workoutType[2])}>Exercise3</h1>
+                                    <h1  id="ex3" onClick={()=>this.changeWorkout(this.state.workoutType[2])}>Declined Bench</h1>
                                 </div>
                                 <div>
-                                    <h1 id="ex4" onClick={()=>this.changeWorkout(this.state.workoutType[3])}>Exercise4</h1>
+                                    <h1 id="ex4" onClick={()=>this.changeWorkout(this.state.workoutType[3])}>Tricep Pulldowns</h1>
                                 </div>
                                 <div>
-                                    <h1  id="ex5" onClick={()=>this.changeWorkout(this.state.workoutType[4])}>Exercise5</h1>
+                                    <h1  id="ex5" onClick={()=>this.changeWorkout(this.state.workoutType[4])}>Skull Crushers</h1>
                                 </div>
                                 <div>
-                                    <h1   id="ex6" onClick={()=>this.changeWorkout(this.state.workoutType[5])}>Exercise6</h1>
+                                    <h1   id="ex6" onClick={()=>this.changeWorkout(this.state.workoutType[5])}>Overhead Triceps</h1>
                                 </div>
                             </div>
         
@@ -241,7 +244,7 @@ class WorkoutCreatePage extends React.Component{
                                               
                             </header>
                             <h1>Current user : {this.props.uName}</h1>
-                            <h1>Workout Name : {this.state.workoutName}</h1> <button class="btn btn-info" onClick={()=>this.changeShowForm()} >Cancle</button>
+                            <h1>Workout Name : {this.state.workoutName}</h1> <button class="btn btn-info" onClick={()=>this.changeShowForm()} >Cancel</button>
                             <br></br>
                             <br></br>
                             <div className="flex-container">
@@ -294,6 +297,25 @@ class WorkoutCreatePage extends React.Component{
         }
         else
         {
+            if(this.state.updateExistingWorkouts){
+                try {
+                    ws.getWorkouts(this.state.uName).then((result) => {
+            
+                        console.log(result);
+                        
+                            this.setState({
+                                existingWorkouts:result.data
+                            });
+                        
+                    });
+                } catch (error) {
+                    
+                }
+                this.setState({
+                    updateExistingWorkouts:false
+                });
+                
+            }
             return(
                 <div className="workoutcreatepage">
                     <header className="app-header">
@@ -309,9 +331,14 @@ class WorkoutCreatePage extends React.Component{
                     <a>Workout Name:</a>
                     {/* <button class="btn btn-info" onClick={()=>this.changeState()}>Click here to Register</button> */}
                      <input type="text" name="workoutName" className="form-control" value={this.state.workoutName} required placeholder="Workout Name" onChange={this.handleChange}/>
+                     <br></br>
                      <button class="btn btn-info" onClick={()=>this.changeShowForm()} >CreateWorkout</button>
                     <br></br>
                     {this.state.errorMessage}
+                    <br></br>
+                    <h3>Existing Workouts</h3>
+                    <br></br>
+                    <RenderWorkouts list ={this.state.existingWorkouts} listWorkouts={true}></RenderWorkouts>
                     </div>
                    
             );

@@ -2,7 +2,8 @@ import React from 'react';
 import '../css/styles.css';
 
 export const RenderItems = ({list}) => (
-    <div className="flex-container">
+    
+        <div className="flex-container">
         {
         
         list.map(item => (
@@ -13,5 +14,19 @@ export const RenderItems = ({list}) => (
             
             </div>
         ))}
-    </div>
+        </div>
   );
+
+  export const RenderWorkouts = ({list}) => (
+    
+    <div className="flex-container">
+    {
+    
+    list.map(item => (
+        <div  key={item.workoutName}>
+        <div className="workout-cards" ><u>{item}</u> </div>
+        
+        </div>
+    ))}
+    </div>
+);

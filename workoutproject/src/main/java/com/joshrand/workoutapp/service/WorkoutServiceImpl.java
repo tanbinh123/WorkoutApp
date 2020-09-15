@@ -35,4 +35,10 @@ public class WorkoutServiceImpl implements WorkoutService
 		return wRepo.findAllByWorkoutName(workoutName);
 	}
 
+	@Override
+	public List<Workout> findAllByUser(String user)
+	{
+		// TODO Auto-generated method stub
+		return wRepo.findAllByUser(user);
+	}
 }

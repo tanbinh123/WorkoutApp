@@ -30,6 +30,7 @@ import com.joshrand.workoutapp.service.LoginService;
 import com.joshrand.workoutapp.service.UserService;
 
 import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
@@ -101,6 +102,7 @@ public class UserController
 		System.out.println(list.toString());
 		if(loginService.validateUser(name, password))
 		{
+			
 			System.out.println(JSONArray.toJSONString(list));
 			return JSONArray.toJSONString(list);
 		}

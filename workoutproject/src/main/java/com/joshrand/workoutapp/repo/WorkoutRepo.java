@@ -9,4 +9,5 @@ import com.joshrand.workoutapp.model.Workout;
 public interface WorkoutRepo extends CrudRepository<Workout, Integer>
 {
 	public List<Workout> findAllByWorkoutName(String workoutName);
+	public List<Workout> findAllByUser(String user);
 }
