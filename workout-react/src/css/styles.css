@@ -1,48 +1,46 @@
 .flex-container {
-
   display: flex;
   flex-wrap: wrap;
-  background-color: #AAFFFF;
-  
+  background-color: #96a3a3;
+
   justify-content: center;
   align-items: center;
-  
 }
-  img {
-      width: 100%;
-    }
-   
-    .flex-container > div {
-      background-color: #f1f1f1;
-      width: 20%;
-      margin: 10px;
-      text-align: center;
-      line-height: 75px;
-      font-size: 30px;
-      cursor: pointer;
-      display:block;
-    }
-    .flex-container > div > h1{
-     
-      font-size: 3vw;
-     
-    }
-   
-    .flex-container > div > .workout-cards {
-      background-color: #f36d6d;
-      
-      margin: 10px;
-      
-      line-height: 30px;
-      font-size: 20px;
-      cursor: pointer;
-      display:block;
-    }
-    .flex-container > div > .workout-cards> u {
-      font-size: 2.5vw;
-    }
-    .flex-container > div > .workout-cards> a {
-      font-size: 2.5vw;
-    }
-   
+img {
+  width: 100%;
+}
 
+.flex-container > div {
+  background-color: lightblue;
+  width: 20%;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+  cursor: pointer;
+  display: block;
+}
+.flex-container > div > h1 {
+  font-size: 3vw;
+}
+div > h6{
+  background-color: lightblue;
+  font-size: 2.0vw;
+  word-wrap:  initial;
+}
+.flex-container > div > .workout-cards {
+  background-color: #f36d6d;
+
+  margin: 10px;
+
+  line-height: 30px;
+  font-size: 20px;
+  cursor: pointer;
+  display: block;
+}
+.flex-container > div > .workout-cards > u {
+  font-size: 2.0vw;
+}
+.flex-container > div > .workout-cards > a {
+  font-size: 2.0vw;
+}

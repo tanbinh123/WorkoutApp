@@ -2,7 +2,8 @@ import React from 'react';
 import Button from 'C:/Users/Josh/AppData/Roaming/npm/node_modules/react-bootstrap';
 import UserService from './services/userservice';
 import './css/styles.css';
-import WorkoutCreatePage from './pages/workoutcreatepage'
+import WorkoutCreatePage from './pages/workoutcreatepage';
+import MenuPage from './pages/menupage';
 var userService = new UserService();
 
 
@@ -155,9 +156,10 @@ class Main extends React.Component{
         console.log("trying to submit condition " + this.state.condition);
     }
     render(){
-        
+        //LoginPage
         if(this.state.start)
         {
+            
             return(
                 
                 <div className="app"  style={{margin:'10%'}}>
@@ -188,54 +190,27 @@ class Main extends React.Component{
 
 
             
-        }
+        }//menupage
         else if(this.state.condition)
         {
 
             return(
                
                 <div className="app" style={{margin:'10%'}}>
-                   
-                    <header className="app-header">
-                        
-                        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-                        rel="stylesheet" 
-                        id="bootstrap-css"/>
-                    </header>
-
-                     <h1>Logged in Successfully as {this.state.user[0].userName}</h1>
-                 <div >
- 
-                <div className="flex-container">
-                    
-                    <div>
-                            <img src={require('./img/DemoWorkoutImg.png')} onClick={()=>this.handleCreateWorkout()}/>
-
-                    </div>
-                    
-                    <div >
-                    
-                        
-                            <img src={require('./img/DemoWorkoutImg.png')} onClick={()=>this.handleLogout()}/>
-                    
-                    </div>
-                
-                
- 
-            </div>
-        </div>
-                    <form  onSubmit={this.handleSubmit}>
+                <MenuPage uName={this.state.uName}/>
+                <form  onSubmit={this.handleSubmit}>
+                <br></br>
+                    {/* <button  class="btn btn-info" type="submit">Click here to change state</button>  */}
                     <br></br>
-                        {/* <button  class="btn btn-info" type="submit">Click here to change state</button>  */}
-                        <br></br>
-                        
-                        {/* style={{padding:"10px",margin:'10px',}} */}
-                    </form>
-                    <br></br>
-                    <button  class="btn btn-info" onClick={()=>this.handleLogout()}>Click here to Logout</button> 
+                    
+                    {/* style={{padding:"10px",margin:'10px',}} */}
+                </form>
+                <br></br>
+                <button  class="btn btn-info" onClick={()=>this.handleLogout()}>Click here to Logout</button> 
+
                 </div>
                 );
-        }
+        }//workoutcreatepage
         else if(this.state.workoutCreate)
         {
             return(
@@ -243,7 +218,7 @@ class Main extends React.Component{
                 <WorkoutCreatePage uName={this.state.uName}/>
                 </div>
             );
-        }
+        }//Register user
         else if(!this.state.condition)
         {
             return(
@@ -276,7 +251,7 @@ class Main extends React.Component{
                 </div>
                
                 );
-        }
+        }//default page
         else if(this.state.condition)
         {
             return(
