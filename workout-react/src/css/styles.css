@@ -1,10 +1,16 @@
+div.menu-card{
+  border:solid 3px;
+  border-radius: 30px;
+}
 .flex-container {
   display: flex;
   flex-wrap: wrap;
   background-color: #96a3a3;
-
+  border-radius: 5px;
+  padding:20px;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 10px black;
 }
 img {
   width: 100%;
@@ -40,7 +46,15 @@ div > h6{
 }
 .flex-container > div > .workout-cards > u {
   font-size: 2.0vw;
+  
 }
 .flex-container > div > .workout-cards > a {
   font-size: 2.0vw;
+  
 }
+.flex-container > div {
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px black;
+  font-family: cursive;
+}
+

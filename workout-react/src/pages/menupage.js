@@ -44,7 +44,7 @@ class MenuPage extends React.Component {
         <h1>Logged in Successfully as {this.state.userName}</h1>
         <div>
           <div className="flex-container">
-            <div>
+            <div className="menu-card">
                 <h6 className="workout-menu">Create Workout</h6>
               <img
                 src={require("../img/DemoWorkoutImg.png")}
@@ -52,7 +52,7 @@ class MenuPage extends React.Component {
               />
             </div>
 
-            <div>
+            <div className="menu-card">
                 <h6 className="workout-menu">Workout</h6>
               <img
                 src={require("../img/DemoWorkoutImg.png")}
