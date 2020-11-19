@@ -1,3 +1,19 @@
+div.login{
+ max-width: 50vw;
+ border: solid 5px coral;
+ border-radius: 5px;
+ padding:15px;
+ margin:auto;
+ background-color: rgb(191, 221, 231);
+
+}
+input{
+  width:50%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
 div.menu-card{
   border:solid 3px;
   border-radius: 30px;

@@ -162,9 +162,10 @@ class Main extends React.Component{
             
             return(
                 
-                <div className="app"  style={{margin:'10%'}}>
+                <div className="login"  style={{margin:'10%'}}>
                      <h1 >Welcome to the Workout App!</h1>
                      <h3 >Please login</h3>
+                     <br></br>
                     <header className="app-header">
                         
                         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
@@ -175,8 +176,11 @@ class Main extends React.Component{
 
                 
                 <form onSubmit={this.HandleLoginSubmit}>
-                     <input type="text" name="uName" className="form-control" value={this.state.uName} required placeholder="User Name" onChange={this.handleChange}/>
-                    <input type="text" name="uPass" className="form-control" value={this.state.uPass} required placeholder="User Password" onChange={this.handleChange}/>
+                     <input type="text" name="uName"  value={this.state.uName} required placeholder="User Name" onChange={this.handleChange}/>
+                     <br></br>
+                     <br></br>
+                    <input type="text" name="uPass"  value={this.state.uPass} required placeholder="User Password" onChange={this.handleChange}/>
+                    <br></br>
                     <br></br>
                     <button class="btn btn-info" type="submit">Sign In</button>
                     <br></br>
